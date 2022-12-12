@@ -12,7 +12,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 def pytest_addoption(parser):
     parser.addoption('--browser', default='chrome',  help='Specify browser, it is chrome by default')
     parser.addoption('--headless', action='store_true', help='Specify headless mode, it is false by default')
-    parser.addoption("--driver_folder", default=os.path.expanduser("~/otus/otus_hw_selenium/drivers"),
+    parser.addoption("--driver_folder", default=os.path.expanduser("~/otus/drivers"),
                      help="Specify driver folder, it is '~/otus/otus_hw_selenium/drivers' by default")
     parser.addoption("--url", action="store", default="http://192.168.1.126:8081",
                      help="Specify opencard url, it is 'http://192.168.1.126:8081' by default")
