@@ -7,6 +7,7 @@ from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
+from pages.app import App
 
 
 def pytest_addoption(parser):
@@ -24,7 +25,7 @@ def base_url(request):
 
 
 @pytest.fixture
-def browser(request):
+def browser(request, base_url):
     browsers = {'firefox': {'webdriver': webdriver.Firefox, 'driver': 'geckodriver', 'options': FirefoxOptions(),
                             'service': FirefoxService},
                 'chrome': {'webdriver': webdriver.Chrome, 'driver': 'chromedriver', 'options': ChromeOptions(),
@@ -51,13 +52,6 @@ def browser(request):
                                        options=options)
     driver.maximize_window()
 
-    yield driver
+    yield App(driver=driver, base_url=base_url)
 
     driver.close()
-
-
-@pytest.fixture
-def app(browser, base_url, request):
-    add_url = request.param if hasattr(request, 'param') else ''
-    browser.get(base_url+add_url)
-    return browser
